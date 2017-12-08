@@ -1,38 +1,37 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Git spindle for GitHub &mdash; git-spindle 3.3 documentation</title>
-    
+    <title>Git spindle for GitHub &#8212; git-spindle 3.4 documentation</title>
     <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '3.3',
+        VERSION:     '3.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/cloud.js"></script>
-    <link rel="top" title="git-spindle 3.3 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Git spindle for GitLab" href="gitlab.html" />
     <link rel="prev" title="Git subcommands for interacting with central services" href="index.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body role="document">
+  <body>
     <div class="relbar-top">
         
     <div class="related" role="navigation" aria-label="related navigation">
@@ -47,7 +46,7 @@
         <li class="right" >
           <a href="index.html" title="Git subcommands for interacting with central services"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="index.html">git-spindle 3.3 documentation</a> &raquo;</li>
+    <li><a href="index.html">git-spindle 3.4 documentation</a> &#187;</li>
  
       </ul>
     </div>
@@ -78,7 +77,7 @@ token with anyone as it gives full access to your GitHub account.</p>
 
 <p>A simple command to try out is <strong class="command">git hub whoami</strong>, which tells you what
 GitHub thinks about who you are. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>dennis@lightning:~$ git hub whoami
+<div class="highlight-default"><div class="highlight"><pre><span></span>dennis@lightning:~$ git hub whoami
 GitHub user: seveas
 GitHub password:
 <span style="font-weight: bold; text-decoration: underline">Dennis Kaarsemaker</span>
@@ -98,7 +97,7 @@ RSA key   ...N0nFw3oW5l (Dennis)
 <dd></dd></dl>
 
 <p>If you want to see this information about other users, use <strong class="command">git hub whois</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre>dennis@lightning:~$ git hub whois sigmavirus24
+<div class="highlight-default"><div class="highlight"><pre><span></span>dennis@lightning:~$ git hub whois sigmavirus24
 <span style="font-weight: bold; text-decoration: underline">Ian Cordasco</span>
 Profile   https://github.com/sigmavirus24
 Email     graffatcolmingov@gmail.com
@@ -113,7 +112,7 @@ Gists     9 public, 0 private
 <dd></dd></dl>
 
 <p>Shows the last few GitHub status messages:</p>
-<div class="highlight-python"><div class="highlight"><pre>dennis@lightning:~$ git hub status
+<div class="highlight-default"><div class="highlight"><pre><span></span>dennis@lightning:~$ git hub status
 <span style="">2014-04-01 23:06</span> <span style="color: yellow">minor</span> Pages builds are paused while we investigate an increase in failed builds
 <span style="">2014-04-01 23:22</span> <span style="color: green">good </span> Everything operating normally.
 <span style="">2014-04-02 00:05</span> <span style="color: yellow">minor</span> We&#39;re investigating reports of git operation failures.
@@ -165,7 +164,7 @@ slightly more verbose output for some log items.</p>
 
 <p>Create a personal access token that can be used for git operations (clone,
 fetch, push) over http. Especially useful if you use two-factor authentication,
-as these tokens can be used instead of your password and don&#8217;t require the
+as these tokens can be used instead of your password and don’t require the
 second factor.</p>
 <p>The token is shown in the output of the command. If you specify
 <code class="xref std std-option docutils literal"><span class="pre">--store</span></code>, the token will also be stored using the git credential
@@ -177,13 +176,13 @@ helpers.</p>
 installs of GitHub enterprise. To use a non-default account outside a
 repository, for example when cloning, you have to tell <strong class="command">git hub</strong> which
 account to use using <code class="xref std std-option docutils literal"><span class="pre">--account</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ git hub --account test-account clone seveas/whelk
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git hub --account test-account clone seveas/whelk
 </pre></div>
 </div>
-<p>If the account is on a GitHub enterprise installation, you don&#8217;t need to use
-&#8211;account all the time. git-spindle will recognize the account from the url in
+<p>If the account is on a GitHub enterprise installation, you don’t need to use
+–account all the time. git-spindle will recognize the account from the url in
 your repository configuration:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ git hub --account work clone dev/website
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git hub --account work clone dev/website
 $ cd website
 $ git hub issues
 </pre></div>
@@ -217,33 +216,38 @@ https://github.example.com</strong>.</p>
 <p>Create a (possibly private) repository on GitHub for your current repository. An
 optional description can be given too. After running this command, a repository
 will be created on GitHub and your local repository will have GitHub as remote
-&#8220;origin&#8221;, so <strong class="command">git push origin master</strong> will work.</p>
+“origin”, so <strong class="command">git push origin master</strong> will work.</p>
 <p>By default the repository is created under your account, but you can specify an
 organization to create the repository for.</p>
 <dl class="describe">
 <dt>
-<code class="descname">git hub set-origin [--ssh|--http|--git] [--triangular]</code></dt>
+<code class="descname">git hub set-origin [--ssh|--http|--git] [--triangular [--upstream-branch=&lt;branch&gt;]]</code></dt>
 <dd></dd></dl>
 
-<p>Fix the configuration of your repository&#8217;s remotes. The remote &#8220;origin&#8221; will be
-set to your GitHub repository. If &#8220;origin&#8221; is a fork, an &#8220;upstream&#8221; remote will
-be set to the repository you forked from. If &#8220;origin&#8221; is not a fork, a fetch
-refspec is added to fetch the pull requests for &#8220;origin&#8221; as
+<p>Fix the configuration of your repository’s remotes. The remote “origin” will be
+set to your GitHub repository. If “origin” is a fork, an “upstream” remote will
+be set to the repository you forked from. If “origin” is not a fork, a fetch
+refspec is added to fetch the pull requests for “origin” as
 <cite>refs/pull/&lt;id&gt;/head</cite>.</p>
-<p>All non-tracking branches with a matching counterpart in &#8220;origin&#8221; will be set to
-track &#8220;origin&#8221; (push and pull to it). Use <code class="xref std std-option docutils literal"><span class="pre">--triangular</span></code> to set remotes
-in a triangular fashion where <strong class="command">git pull</strong> pulls from &#8220;upstream&#8221; and
-<strong class="command">git push</strong> pushes to &#8220;origin&#8221;.</p>
-<p>For &#8220;origin&#8221;, an SSH url is used. For &#8220;upstream&#8221;, set-origin defaults to adding
+<p>All non-tracking branches with a matching counterpart in “origin” will be set to
+track “origin” (push and pull to it). Use <code class="xref std std-option docutils literal"><span class="pre">--triangular</span></code> to set remotes
+in a triangular fashion where <strong class="command">git pull</strong> pulls from “upstream” and
+<strong class="command">git push</strong> pushes to “origin”. This also sets the configuration option
+<code class="xref std std-option docutils literal"><span class="pre">remote.pushDefault</span></code>, so that new branches are pushed to “origin” even
+if they track a branch in “upstream”. All non-tracking branches are set up to
+track a matching counterpart in “upstream” except if <code class="xref std std-option docutils literal"><span class="pre">--upstream-branch</span></code>
+explicitly specifies a branch like “master” in “upstream” that all branches should
+track.</p>
+<p>For “origin”, an SSH url is used. For “upstream”, set-origin defaults to adding
 a git url, but this can be overridden. For private repos, SSH is used.</p>
 <dl class="describe">
 <dt>
-<code class="descname">git hub clone [--ssh|--http|--git] [--parent] [git-clone-options] &lt;repo&gt; [&lt;dir&gt;]</code></dt>
+<code class="descname">git hub clone [--ssh|--http|--git] [--triangular [--upstream-branch=&lt;branch&gt;]] [--parent] [git-clone-options] &lt;repo&gt; [&lt;dir&gt;]</code></dt>
 <dd></dd></dl>
 
-<p>Clone a GitHub repository by name (e.g. seveas/hacks) or URL. The &#8220;origin&#8221;
-remote will be set and, like with set-origin, if &#8220;origin&#8221; is a fork an
-&#8220;upstream&#8221; remote will be set too. The option <code class="xref std std-option docutils literal"><span class="pre">--triangular</span></code> can be used
+<p>Clone a GitHub repository by name (e.g. seveas/hacks) or URL. The “origin”
+remote will be set and, like with set-origin, if “origin” is a fork an
+“upstream” remote will be set too. The option <code class="xref std std-option docutils literal"><span class="pre">--triangular</span></code> can be used
 for a triangular setup.</p>
 <p>Defaults to cloning from a git url, but this can be overridden. For private
 repos, SSH is used.</p>
@@ -270,15 +274,15 @@ repository names and refs. For example: <cite>master:bin/git-hub</cite>,
 <code class="descname">git hub readme [&lt;repo&gt;]</code></dt>
 <dd></dd></dl>
 
-<p>Download and display a repository&#8217;s README file, whatever its actual name is.</p>
+<p>Download and display a repository’s README file, whatever its actual name is.</p>
 <dl class="describe">
 <dt>
-<code class="descname">git hub fork [--ssh|--http|--git] [&lt;repo&gt;]</code></dt>
+<code class="descname">git hub fork [--ssh|--http|--git] [--triangular [--upstream-branch=&lt;branch&gt;]] [&lt;repo&gt;]</code></dt>
 <dd></dd></dl>
 
-<p>Fork another person&#8217;s git repository on GitHub and clone that repository
+<p>Fork another person’s git repository on GitHub and clone that repository
 locally. The repository can be specified as a (git) url or simply username/repo.
-Like with set-origin, the &#8220;origin&#8221; and &#8220;upstream&#8221; remotes will be set up too.
+Like with set-origin, the “origin” and “upstream” remotes will be set up too.
 The option <code class="xref std std-option docutils literal"><span class="pre">--triangular</span></code> can be used for a triangular setup.</p>
 <p>Defaults to cloning from a git url, but this can be overridden. For private
 repos, SSH is used.</p>
@@ -295,7 +299,7 @@ fork of that repository and set up your remotes.</p>
 <code class="descname">git hub add-remote [--ssh|--http|--git] &lt;user&gt; [&lt;name&gt;]</code></dt>
 <dd></dd></dl>
 
-<p>Add a users fork as a remote using the specified name or the user&#8217;s login as
+<p>Add a users fork as a remote using the specified name or the user’s login as
 name for the remote. Defaults to adding an http url, but this can be
 overridden. For private repos SSH is used.</p>
 <dl class="describe">
@@ -303,15 +307,15 @@ overridden. For private repos SSH is used.</p>
 <code class="descname">git hub fetch [--ssh|--http|--git] &lt;user&gt; [&lt;refspec&gt;]</code></dt>
 <dd></dd></dl>
 
-<p>If you don&#8217;t want to add a user&#8217;s fork as a remote, but to want to fetch some
+<p>If you don’t want to add a user’s fork as a remote, but to want to fetch some
 refs from it, you can use the <strong class="command">fetch</strong> command. You can tell it which
-refs to fetch, and if you don&#8217;t give a refspec, it will fetch all branches.</p>
+refs to fetch, and if you don’t give a refspec, it will fetch all branches.</p>
 <dl class="describe">
 <dt>
 <code class="descname">git hub browse [--parent] [&lt;repo&gt;] [&lt;section&gt;]</code></dt>
 <dd></dd></dl>
 
-<p>Browse a repository (or its parent) on GitHub. By default the repository&#8217;s
+<p>Browse a repository (or its parent) on GitHub. By default the repository’s
 homepage is opened, but you can specify a different section, such as issues,
 pulls, wiki, branches, releases, contributors, graphs or settings.</p>
 <dl class="describe">
@@ -380,7 +384,7 @@ non_admins).</p>
 <code class="descname">git hub unprotect &lt;branch&gt;</code></dt>
 <dd></dd></dl>
 
-<p>Remove a branch&#8217;s protection.</p>
+<p>Remove a branch’s protection.</p>
 <dl class="describe">
 <dt>
 <code class="descname">git hub deploy-keys [&lt;repo&gt;]</code></dt>
@@ -393,14 +397,14 @@ non_admins).</p>
 <dd></dd></dl>
 
 <p>Add a deploy key to a repository, which can be used to fetch and push data via
-ssh. Read-only keys acan only fetch.</p>
+ssh. Read-only keys can only fetch.</p>
 <dl class="describe">
 <dt>
 <code class="descname">git hub remove-deploy-key &lt;key&gt;...</code></dt>
 <dd></dd></dl>
 
 <p>Remove a deploy key by id. Use the <strong class="command">git hub deploy-keys</strong> command to
-see the id&#8217;s of your deploy keys.</p>
+see the id’s of your deploy keys.</p>
 <dl class="describe">
 <dt>
 <code class="descname">git hub hooks</code></dt>
@@ -436,8 +440,23 @@ for. A list of all events can be found on the <a class="reference external" href
 <code class="descname">git hub issues [&lt;repo&gt;] [--parent] [&lt;filter&gt;...]</code></dt>
 <dd></dd></dl>
 
-<p>List all open issues. You can specify <a class="reference external" href="http://github3py.readthedocs.org/en/latest/repos.html#github3.repos.Repository.list_issues">filters</a> to filter issues. When you
-specify <code class="xref std std-option docutils literal"><span class="pre">--parent</span></code>, list all open issues for the parent repository.</p>
+<p>List all open issues for the current repository, or the one specified in the
+<cite>&lt;repo&gt;</cite> argument. If you run this outside a repository, or with <cite>–</cite> as
+<cite>&lt;repo&gt;</cite>, it will list issues in all your repositories.  When you
+specify <code class="xref std std-option docutils literal"><span class="pre">--parent</span></code>, this will operate on the parent repositoryD.</p>
+<p>You can specify filters in the form <cite>filter=value</cite> to filter issues. Supported
+filters are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>state, accepted values: all, open, closed</li>
+<li>assignee, accepted values: none, <a href="#id1"><span class="problematic" id="id2">*</span></a>, or a loginname</li>
+<li>mentioned, accepted values: a loginname</li>
+<li>labels, accepted values: comma-separated list of labels, e.g. bug,ui,&#64;high</li>
+<li>since, accepted values: an ISO8601 formatted date string, e.g., 2017-05-20T23:10:27Z</li>
+<li>sort, accepted values: created, updated, comments</li>
+<li>direction, accepted values: asc, desc</li>
+</ul>
+</div></blockquote>
 <dl class="describe">
 <dt>
 <code class="descname">git hub issue [&lt;repo&gt;] [--parent] [&lt;issue&gt;...]</code></dt>
@@ -452,10 +471,12 @@ used to create a new issue.</p>
 <code class="descname">git hub pull-request [--issue=&lt;issue&gt;] [--yes] [&lt;yours:theirs&gt;]</code></dt>
 <dd></dd></dl>
 
-<p>Files a pull request to merge branch &#8220;yours&#8221; (default: the current branch) into
-the upstream branch &#8220;theirs&#8221; (default: master). Like for a commit message, your
+<p>Files a pull request to merge branch “yours” (default: the current branch) into
+the upstream branch “theirs” (default: the tracked branch of “yours” if it is in
+the upstream repository, otherwise the default branch of the upstream
+repository, usually “master”). Like for a commit message, your
 editor will be opened to write a pull request message. The comments of said
-message contain the shortlog and diffstat of the commits that you&#8217;re asking to
+message contain the shortlog and diffstat of the commits that you’re asking to
 be merged. Note that if you use any characterset in your logs and filenames
 that is not ascii or utf-8, git hub will misbehave.</p>
 <p>If you specify an issue number, that issue will be turned into a pull request
@@ -495,7 +516,7 @@ command output to GitHub, for example: <strong class="command">fortune | git hub
 
 <p>Show a timeline of a your activity, or that of another user. The timeline will
 look like that on your GitHub profile page:</p>
-<div class="highlight-python"><div class="highlight"><pre>  Sep Oct     Nov     Dec       Jan     Feb     Mar       Apr     May     Jun       Jul     Aug     Sep
+<div class="highlight-default"><div class="highlight"><pre><span></span>  Sep Oct     Nov     Dec       Jan     Feb     Mar       Apr     May     Jun       Jul     Aug     Sep
     <span style="">■ </span><span style="color: #5f875f">■ </span><span style="color: #5f875f">■ </span><span style="color: #5f875f">■ </span><span style="color: #008700">■ </span><span style="color: #005f00">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f8700">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #5f875f">■ </span><span style="color: #008700">■ </span><span style="color: #5f8700">■ </span><span style="color: #008700">■ </span><span style="color: #5f8700">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f8700">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span>
 M   <span style="">■ </span><span style="color: #005f00">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #008700">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #008700">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f8700">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #005f00">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span>
     <span style="">■ </span><span style="color: #005f00">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f8700">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #3a3a3a">■ </span><span style="color: #5f875f">■ </span><span style="color: #3a3a3a">■ </span>
@@ -507,11 +528,12 @@ F <span style="color: #3a3a3a">■ </span><span style="color: #008700">■ </spa
 </div>
 <dl class="describe">
 <dt>
-<code class="descname">git hub check-pages</code></dt>
+<code class="descname">git hub check-pages [&lt;repo&gt;] [--parent]</code></dt>
 <dd></dd></dl>
 
 <p>Check your repository for common misconfigurations in the usage of GitHub
-pages, including DNS checks and content checks.</p>
+pages, including DNS checks and content checks. You can use the
+<code class="xref std std-option docutils literal"><span class="pre">--parent</span></code> option to check the parent repository instead.</p>
 <dl class="describe">
 <dt>
 <code class="descname">git hub render [--save=&lt;outfile&gt;] &lt;file&gt;</code></dt>
@@ -540,11 +562,11 @@ useful to keep firewalls and access control lists up-to-date.</p>
 <dd></dd></dl>
 
 <p>Generates a graphviz graph of people following you, people you follow or people
-who&#8217;s repositories you&#8217;ve forked. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>git hub network | dot -T png -Grankdir=LR &gt; network.png
+who’s repositories you’ve forked. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">hub</span> <span class="n">network</span> <span class="o">|</span> <span class="n">dot</span> <span class="o">-</span><span class="n">T</span> <span class="n">png</span> <span class="o">-</span><span class="n">Grankdir</span><span class="o">=</span><span class="n">LR</span> <span class="o">&gt;</span> <span class="n">network</span><span class="o">.</span><span class="n">png</span>
 </pre></div>
 </div>
-<p>Here&#8217;s mine:</p>
+<p>Here’s mine:</p>
 <img alt="_images/network.png" src="_images/network.png" />
 <dl class="describe">
 <dt>
@@ -566,7 +588,7 @@ who&#8217;s repositories you&#8217;ve forked. For example:</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="sphinxlocaltoc">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
     <h3><a href="index.html">Page contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Git spindle for GitHub</a><ul>
@@ -595,18 +617,32 @@ who&#8217;s repositories you&#8217;ve forked. For example:</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
       <div class="clearer"></div>
     </div>
     <div class="relbar-bottom">
@@ -623,14 +659,14 @@ who&#8217;s repositories you&#8217;ve forked. For example:</p>
         <li class="right" >
           <a href="index.html" title="Git subcommands for interacting with central services"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="index.html">git-spindle 3.3 documentation</a> &raquo;</li>
+    <li><a href="index.html">git-spindle 3.4 documentation</a> &#187;</li>
  
       </ul>
     </div>
     </div>
 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012-2015, Dennis Kaarsemaker.
+        &#169; Copyright 2012-2017, Dennis Kaarsemaker.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>

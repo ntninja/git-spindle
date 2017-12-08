@@ -1,37 +1,36 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Git subcommands for interacting with central services &mdash; git-spindle 3.3 documentation</title>
-    
+    <title>Git subcommands for interacting with central services &#8212; git-spindle 3.4 documentation</title>
     <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '3.3',
+        VERSION:     '3.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/cloud.js"></script>
-    <link rel="top" title="git-spindle 3.3 documentation" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Git spindle for GitHub" href="github.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body role="document">
+  <body>
     <div class="relbar-top">
         
     <div class="related" role="navigation" aria-label="related navigation">
@@ -43,7 +42,7 @@
         <li class="right" >
           <a href="github.html" title="Git spindle for GitHub"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
-    <li><a href="#">git-spindle 3.3 documentation</a> &raquo;</li>
+    <li><a href="#">git-spindle 3.4 documentation</a> &#187;</li>
  
       </ul>
     </div>
@@ -62,14 +61,14 @@ perform actions such as creating repositories and filing pull requests.
 git-spindle is a collection of git subcommands to make using these services
 easier.</p>
 <p>For example, to fork and clone a repository on GitHub, one can now simply use:</p>
-<div class="highlight-python"><div class="highlight"><pre>git hub clone seveas/whelk
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">hub</span> <span class="n">clone</span> <span class="n">seveas</span><span class="o">/</span><span class="n">whelk</span>
 </pre></div>
 </div>
 <div class="section" id="install-info">
 <h2>Install info<a class="headerlink" href="#install-info" title="Permalink to this headline">¶</a></h2>
 <p>To install the latest released version on Ubuntu:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo add-apt-repository ppa:dennis/devtools
-sudo apt-get install git-spindle
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="p">:</span><span class="n">dennis</span><span class="o">/</span><span class="n">devtools</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">git</span><span class="o">-</span><span class="n">spindle</span>
 </pre></div>
 </div>
 <p>To install the latest released version on Windows:</p>
@@ -79,15 +78,15 @@ sudo apt-get install git-spindle
 <li><p class="first">Install python 3.5 or newer from <a class="reference external" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
 </li>
 <li><p class="first">Run the following 2 commands in a command prompt:</p>
-<div class="highlight-python"><div class="highlight"><pre>py -mensurepip
-py -mpip install git-spindle
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">py</span> <span class="o">-</span><span class="n">mensurepip</span>
+<span class="n">py</span> <span class="o">-</span><span class="n">mpip</span> <span class="n">install</span> <span class="n">git</span><span class="o">-</span><span class="n">spindle</span>
 </pre></div>
 </div>
 </li>
 </ul>
 <p>To install the latest released version on other systems, assuming python and
 pip are installed:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install git-spindle
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">-</span><span class="n">spindle</span>
 </pre></div>
 </div>
 </div>
@@ -99,6 +98,7 @@ pip are installed:</p>
 <li class="toctree-l1"><a class="reference internal" href="github.html">Git spindle for GitHub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gitlab.html">Git spindle for GitLab</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bitbucket.html">Git spindle for BitBucket</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins for spindles</a></li>
 </ul>
 </div>
 </div>
@@ -108,7 +108,7 @@ pip are installed:</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="sphinxlocaltoc">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
     <h3><a href="#">Page contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Git subcommands for interacting with central services</a><ul>
@@ -127,18 +127,32 @@ pip are installed:</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
       <div class="clearer"></div>
     </div>
     <div class="relbar-bottom">
@@ -152,14 +166,14 @@ pip are installed:</p>
         <li class="right" >
           <a href="github.html" title="Git spindle for GitHub"
              >next</a> &nbsp; &nbsp;</li>
-    <li><a href="#">git-spindle 3.3 documentation</a> &raquo;</li>
+    <li><a href="#">git-spindle 3.4 documentation</a> &#187;</li>
  
       </ul>
     </div>
     </div>
 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012-2015, Dennis Kaarsemaker.
+        &#169; Copyright 2012-2017, Dennis Kaarsemaker.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>

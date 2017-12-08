@@ -1,37 +1,37 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Git spindle for BitBucket &mdash; git-spindle 3.3 documentation</title>
-    
+    <title>Git spindle for BitBucket &#8212; git-spindle 3.4 documentation</title>
     <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '3.3',
+        VERSION:     '3.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/cloud.js"></script>
-    <link rel="top" title="git-spindle 3.3 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Plugins for spindles" href="plugins.html" />
     <link rel="prev" title="Git spindle for GitLab" href="gitlab.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body role="document">
+  <body>
     <div class="relbar-top">
         
     <div class="related" role="navigation" aria-label="related navigation">
@@ -41,9 +41,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="plugins.html" title="Plugins for spindles"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
           <a href="gitlab.html" title="Git spindle for GitLab"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="index.html">git-spindle 3.3 documentation</a> &raquo;</li>
+    <li><a href="index.html">git-spindle 3.4 documentation</a> &#187;</li>
  
       </ul>
     </div>
@@ -72,7 +75,7 @@ this file with anyone as it gives full access to your BitBucket account.</p>
 
 <p>A simple command to try out is <strong class="command">git bb whoami</strong>, which tells you what
 BitBucket thinks about who you are. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>dennis@lightning:~$ git bb whoami
+<div class="highlight-default"><div class="highlight"><pre><span></span>dennis@lightning:~$ git bb whoami
 Dennis Kaarsemaker
 <span style="font-weight: bold; text-decoration: underline">Dennis Kaarsemaker</span>
 Profile:  https://bitbucket.org/seveas
@@ -87,7 +90,7 @@ RSA key   ...N0nFw3oW5l (Dennis Kaarsemaker (git))
 <dd></dd></dl>
 
 <p>If you want to see this information about other users, use <strong class="command">git bb whois</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre>dennis@lightning:~$ git bb whois bblough
+<div class="highlight-default"><div class="highlight"><pre><span></span>dennis@lightning:~$ git bb whois bblough
 <span style="font-weight: bold; text-decoration: underline">Bill Blough</span>
 Profile:  https://bitbucket.org/bblough
 </pre></div>
@@ -118,7 +121,7 @@ to exclude forked repositories.</p>
 <p><strong class="command">git bb</strong> supports using more than one account. To use a non-default,
 you have to tell <strong class="command">git bb</strong> which account to use using
 <code class="xref std std-option docutils literal"><span class="pre">--account</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ git bb --account test-account clone seveas/whelk
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git bb --account test-account clone seveas/whelk
 </pre></div>
 </div>
 <dl class="describe">
@@ -146,31 +149,36 @@ is hardcoded to be the current account.</p>
 <p>Create a (possibly private) repository on BitBucket for your current repository. An
 optional description can be given too. After running this command, a repository
 will be created on BitBucket and your local repository will have BitBucket as remote
-&#8220;origin&#8221;, so <strong class="command">git push origin master</strong> will work.</p>
+“origin”, so <strong class="command">git push origin master</strong> will work.</p>
 <p>By default the repository is created under your account, but you can specify a
 team to create the repository for.</p>
 <dl class="describe">
 <dt>
-<code class="descname">git bb set-origin [--ssh|--http] [--triangular]</code></dt>
+<code class="descname">git bb set-origin [--ssh|--http] [--triangular [--upstream-branch=&lt;branch&gt;]]</code></dt>
 <dd></dd></dl>
 
-<p>Fix the configuration of your repository&#8217;s remotes. The remote &#8220;origin&#8221; will be
-set to your BitBucket repository. If &#8220;origin&#8221; is a fork, an &#8220;upstream&#8221; remote will
+<p>Fix the configuration of your repository’s remotes. The remote “origin” will be
+set to your BitBucket repository. If “origin” is a fork, an “upstream” remote will
 be set to the repository you forked from.</p>
-<p>All non-tracking branches with a matching counterpart in &#8220;origin&#8221; will be set to
-track &#8220;origin&#8221; (push and pull to it). Use <code class="xref std std-option docutils literal"><span class="pre">--triangular</span></code> to set remotes
-in a triangular fashion where <strong class="command">git pull</strong> pulls from &#8220;upstream&#8221; and
-<strong class="command">git push</strong> pushes to &#8220;origin&#8221;.</p>
-<p>For &#8220;origin&#8221;, an SSH url is used. For &#8220;upstream&#8221;, set-origin defaults to adding
+<p>All non-tracking branches with a matching counterpart in “origin” will be set to
+track “origin” (push and pull to it). Use <code class="xref std std-option docutils literal"><span class="pre">--triangular</span></code> to set remotes
+in a triangular fashion where <strong class="command">git pull</strong> pulls from “upstream” and
+<strong class="command">git push</strong> pushes to “origin”. This also sets the configuration option
+<code class="xref std std-option docutils literal"><span class="pre">remote.pushDefault</span></code>, so that new branches are pushed to “origin” even
+if they track a branch in “upstream”. All non-tracking branches are set up to
+track a matching counterpart in “upstream” except if <code class="xref std std-option docutils literal"><span class="pre">--upstream-branch</span></code>
+explicitly specifies a branch like “master” in “upstream” that all branches should
+track.</p>
+<p>For “origin”, an SSH url is used. For “upstream”, set-origin defaults to adding
 a git url, but this can be overridden. For private repos, SSH is used.</p>
 <dl class="describe">
 <dt>
-<code class="descname">git bb clone [--ssh|--http] [--triangular] [--parent] [git-clone-options] &lt;repo&gt; [&lt;dir&gt;]</code></dt>
+<code class="descname">git bb clone [--ssh|--http] [--triangular [--upstream-branch=&lt;branch&gt;]] [--parent] [git-clone-options] &lt;repo&gt; [&lt;dir&gt;]</code></dt>
 <dd></dd></dl>
 
-<p>Clone a BitBucket repository by name (e.g. seveas/whelk) or URL. The &#8220;origin&#8221;
-remote will be set and, like with set-origin, if &#8220;origin&#8221; is a fork the
-&#8220;upstream&#8221; remote will be set too. The option <code class="xref std std-option docutils literal"><span class="pre">--triangular</span></code> can be used
+<p>Clone a BitBucket repository by name (e.g. seveas/whelk) or URL. The “origin”
+remote will be set and, like with set-origin, if “origin” is a fork the
+“upstream” remote will be set too. The option <code class="xref std std-option docutils literal"><span class="pre">--triangular</span></code> can be used
 for a triangular setup.</p>
 <p>Defaults to cloning from a git url, but this can be overridden. For private
 repos, SSH is used.</p>
@@ -194,12 +202,12 @@ repository names and refs. For example: <cite>master:bin/git-bb</cite>,
 <cite>git-spindle:master:bin/git-bb</cite> or <cite>seveas/git-spindle:master:bin/git-bb</cite>.</p>
 <dl class="describe">
 <dt>
-<code class="descname">git bb fork [--ssh|--http] [--triangular] [&lt;repo&gt;]</code></dt>
+<code class="descname">git bb fork [--ssh|--http] [--triangular [--upstream-branch=&lt;branch&gt;]] [&lt;repo&gt;]</code></dt>
 <dd></dd></dl>
 
-<p>Fork another person&#8217;s git repository on BitBucket and clone that repository
+<p>Fork another person’s git repository on BitBucket and clone that repository
 locally. The repository can be specified as a (git) url or simply username/repo.
-Like with set-origin, the &#8220;origin&#8221; and &#8220;upstream&#8221; remotes will be set up too.
+Like with set-origin, the “origin” and “upstream” remotes will be set up too.
 The option <code class="xref std std-option docutils literal"><span class="pre">--triangular</span></code> can be used for a triangular setup.</p>
 <p>Defaults to cloning from a git url, but this can be overridden.</p>
 <p>Calling fork in a previously cloned-but-not-forked repository will create a
@@ -215,7 +223,7 @@ fork of that repository and set up your remotes.</p>
 <code class="descname">git bb add-remote [--ssh|--http] &lt;user&gt; [&lt;name&gt;]</code></dt>
 <dd></dd></dl>
 
-<p>Add a users fork as a remote using the specified name or the user&#8217;s login as
+<p>Add a users fork as a remote using the specified name or the user’s login as
 name for the remote. Defaults to adding an http url, but this can be
 overridden. For private repos SSH is used.</p>
 <dl class="describe">
@@ -223,15 +231,15 @@ overridden. For private repos SSH is used.</p>
 <code class="descname">git bb fetch [--ssh|--http] &lt;user&gt; [&lt;refspec&gt;]</code></dt>
 <dd></dd></dl>
 
-<p>If you don&#8217;t want to add a user&#8217;s fork as a remote, but to want to fetch some
+<p>If you don’t want to add a user’s fork as a remote, but to want to fetch some
 refs from it, you can use the <strong class="command">fetch</strong> command. You can tell it which
-refs to fetch, and if you don&#8217;t give a refspec, it will fetch all branches.</p>
+refs to fetch, and if you don’t give a refspec, it will fetch all branches.</p>
 <dl class="describe">
 <dt>
 <code class="descname">git bb browse [--parent] [&lt;repo&gt;] [&lt;section&gt;]</code></dt>
 <dd></dd></dl>
 
-<p>Browse a repository (or its parent) on BitBucket. By default the repository&#8217;s
+<p>Browse a repository (or its parent) on BitBucket. By default the repository’s
 homepage is opened, but you can specify a different section, such as src,
 src, commits, branches, pull-requests, downloads, admin, issues or wiki.</p>
 <dl class="describe">
@@ -295,7 +303,7 @@ ssh.</p>
 <dd></dd></dl>
 
 <p>Remove a deploy key by id. Use the <strong class="command">git bb deploy-keys</strong> command to
-see the id&#8217;s of your deploy keys.</p>
+see the id’s of your deploy keys.</p>
 </div>
 <div class="section" id="issues-and-pull-requests">
 <h2>Issues and pull requests<a class="headerlink" href="#issues-and-pull-requests" title="Permalink to this headline">¶</a></h2>
@@ -304,8 +312,22 @@ see the id&#8217;s of your deploy keys.</p>
 <code class="descname">git bb issues [&lt;repo&gt;] [--parent] [&lt;filter&gt;...]</code></dt>
 <dd></dd></dl>
 
-<p>List all open issues. You can specify filters to filter issues. When you
-specify <code class="xref std std-option docutils literal"><span class="pre">--parent</span></code>, list all open issues for the parent repository.</p>
+<p>List all open issues for the current repository, or the one specified in the
+<cite>&lt;repo&gt;</cite> argument. If you run this outside a repository, or with <cite>–</cite> as
+<cite>&lt;repo&gt;</cite>, it will list issues in all your repositories.  When you
+specify <code class="xref std std-option docutils literal"><span class="pre">--parent</span></code>, this will operate on the parent repositoryD.</p>
+<p>You can specify filters in the form <cite>filter=value</cite> to filter issues. Supported
+filters are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>status, accepted values: new, open, resolved, on hold, invalid, duplicate, wontfix</li>
+<li>priority, accepted values; trivial, minor, major, critical, blocker</li>
+<li>title</li>
+<li>is_spam, accepted values: true, false</li>
+</ul>
+</div></blockquote>
+<p>Filter values can be prefixed with ! to negate the match, ~, or ^ or $ to
+indicate a ‘contains’, ‘starts with’ or ‘ends with’ operation.</p>
 <dl class="describe">
 <dt>
 <code class="descname">git bb issue [&lt;repo&gt;] [--parent] [&lt;issue&gt;...]</code></dt>
@@ -320,10 +342,12 @@ used to create a new issue.</p>
 <code class="descname">git bb pull-request [--yes] [&lt;yours:theirs&gt;]</code></dt>
 <dd></dd></dl>
 
-<p>Files a pull request to merge branch &#8220;yours&#8221; (default: the current branch) into
-the upstream branch &#8220;theirs&#8221; (default: master). Like for a commit message, your
+<p>Files a pull request to merge branch “yours” (default: the current branch) into
+the upstream branch “theirs” (default: the tracked branch of “yours” if it is in
+the upstream repository, otherwise the default branch of the upstream
+repository, usually “master”). Like for a commit message, your
 editor will be opened to write a pull request message. The comments of said
-message contain the shortlog and diffstat of the commits that you&#8217;re asking to
+message contain the shortlog and diffstat of the commits that you’re asking to
 be merged. Note that if you use any characterset in your logs and filenames
 that is not ascii or utf-8, git bb will misbehave.</p>
 <dl class="describe">
@@ -359,7 +383,7 @@ command output to BitBucket, for example: <strong class="command">fortune | git 
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="sphinxlocaltoc">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
     <h3><a href="index.html">Page contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Git spindle for BitBucket</a><ul>
@@ -379,21 +403,40 @@ command output to BitBucket, for example: <strong class="command">fortune | git 
     <p class="topless"><a href="gitlab.html"
                           title="Previous page">&larr; Git spindle for GitLab</a></p>
   </div>
+  <div class="sphinxnext">
+    <h4>Next page</h4>
+    <p class="topless"><a href="plugins.html"
+                          title="Next page">&rarr; Plugins for spindles</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
       <div class="clearer"></div>
     </div>
     <div class="relbar-bottom">
@@ -405,16 +448,19 @@ command output to BitBucket, for example: <strong class="command">fortune | git 
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="plugins.html" title="Plugins for spindles"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
           <a href="gitlab.html" title="Git spindle for GitLab"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="index.html">git-spindle 3.3 documentation</a> &raquo;</li>
+    <li><a href="index.html">git-spindle 3.4 documentation</a> &#187;</li>
  
       </ul>
     </div>
     </div>
 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012-2015, Dennis Kaarsemaker.
+        &#169; Copyright 2012-2017, Dennis Kaarsemaker.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>

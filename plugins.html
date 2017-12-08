@@ -1,0 +1,181 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Plugins for spindles &#8212; git-spindle 3.4 documentation</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Git spindle for BitBucket" href="bitbucket.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="bitbucket.html" title="Git spindle for BitBucket"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="index.html">git-spindle 3.4 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="plugins-for-spindles">
+<h1>Plugins for spindles<a class="headerlink" href="#plugins-for-spindles" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Plugins only work when using python 3. Python 2’s importlib does not
+contain the necessary functionality.</p>
+</div>
+<p>As of version 3.4, git-spindle has a plugin system with which you can add
+subcommands that are not suitable for sending upstream. For example, I use it
+for enumerating the status of my work PR’s that assumes access to work internal
+systems.</p>
+<p>Plugins live in <cite>~/.local/lib/git-spindle/$spindle/$plugin.py</cite>. They are
+structured like the actual spindles themselves, except that your methods must
+be fully self-contained as they will be transplanted into the main spindle
+classes. Methods must comply with the following:</p>
+<ul class="simple">
+<li>They must be decorated with <cite>&#64;command</cite>, else they will be ignored They must</li>
+<li>have documentation as a 2-line strinf. The first line must be a docpt-format</li>
+<li>list of accepted options. The second line contains a short usage
+string. If the method takes no options, the docstring must start with a
+newline.</li>
+<li>Since the method is transplanted into the actual spindle, the method must be
+completely self-contained. The ‘self’ argument will also be an instance of
+the spindle, not the plugin</li>
+<li>The self argument may rely on certain GitSpindle internals, for which you’re
+going to have to read the code:<ul>
+<li><cite>self.api</cite> will refer to the api module</li>
+<li><cite>self.spindle</cite> is the name of the spindle</li>
+<li><cite>self.gh/self.bb/self.gl</cite> refer to the authenticated api instance</li>
+<li><cite>self.shell</cite> is a <cite>whelk.Shell</cite> instance with utf-8 encoding</li>
+<li>the <cite>self.git</cite> function to execute git commands</li>
+<li>the <cite>self.gitm</cite> function that does the same, but exits if the command fails</li>
+<li>the <cite>self.config</cite> function to read/write git-spindle configuration</li>
+<li>the <cite>self.repository</cite> function, that finds the correct repository on
+GitHub/GitLab/Bitbucket</li>
+</ul>
+</li>
+<li>Use of other internals is discouraged. If there is another internal function
+you would like to use (or add), please file a pull request.</li>
+</ul>
+<p>Here is a minimal example that prints a summary of all pull requests you’ve
+filed in an organization’s repositories:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gitspindle</span> <span class="k">import</span> <span class="n">GitSpindlePlugin</span><span class="p">,</span> <span class="n">command</span>
+
+<span class="k">class</span> <span class="nc">GitHub</span><span class="p">(</span><span class="n">GitSpindlePlugin</span><span class="p">):</span>
+    <span class="nd">@command</span>
+    <span class="k">def</span> <span class="nf">my_org_prs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;&lt;org&gt;</span>
+<span class="sd">           List the PR&#39;s you filed in an organization&#39;s repos&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">issue</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gh</span><span class="o">.</span><span class="n">iter_org_issues</span><span class="p">(</span><span class="n">opts</span><span class="p">[</span><span class="s1">&#39;&lt;org&gt;&#39;</span><span class="p">],</span> <span class="nb">filter</span><span class="o">=</span><span class="s1">&#39;created&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">issue</span><span class="o">.</span><span class="n">pull_request</span><span class="p">:</span>
+                <span class="n">rl</span> <span class="o">=</span> <span class="s1">&#39;[</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">]&#39;</span> <span class="o">%</span> <span class="n">issue</span><span class="o">.</span><span class="n">repository</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%-25s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">rl</span><span class="p">,</span> <span class="n">issue</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">issue</span><span class="o">.</span><span class="n">html_url</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Placing this in <cite>~/.local/lib/git-spindle/github/org-prs.py</cite> will cause <cite>git hub
+my-org-prs someorgname</cite> to work, including adding the usage string to the main
+program’s help functions.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="bitbucket.html"
+                          title="Previous page">&larr; Git spindle for BitBucket</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="bitbucket.html" title="Git spindle for BitBucket"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="index.html">git-spindle 3.4 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2017, Dennis Kaarsemaker.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>
