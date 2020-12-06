@@ -1153,7 +1153,9 @@ be ignored, the first line will be used as title for the issue.""" % (repo.owner
             err("Cannot file a pull request on the same branch")
 
         # Try to get the local commit
-        commit = self.gitm('show-ref', 'refs/heads/%s' % src).stdout.split()[0]
+        pushed = False
+        show_ref_result = self.git('show-ref', 'refs/heads/%s' % src).stdout
+        commit = show_ref_result.split()[0] if show_ref_result else None
         # Do they exist on github?
         try:
             srcb = repo.branch(src)
@@ -1164,17 +1166,22 @@ be ignored, the first line will be used as title for the issue.""" % (repo.owner
                 self.gitm('push', '-u', repo.remote, src, redirect=False)
             else:
                 err("Aborting")
+        elif commit is None:
+            # Branch exists on GitHub but not locally
+            print("Branch %s only exists on GitHub but not locally, continuing with remote branch content only." % src)
         elif srcb and srcb.commit.sha != commit:
             # Have we diverged? Then there are commits that are reachable from the github branch but not local
             diverged = self.gitm('rev-list', srcb.commit.sha, '^' + commit)
             if diverged.stderr or diverged.stdout:
                 if self.question("Branch %s has diverged from GitHub, shall I push and overwrite?" % src, default=False):
                     self.gitm('push', '--force', repo.remote, src, redirect=False)
+                    pushed = True
                 else:
                     err("Aborting")
             else:
                 if self.question("Branch %s not up to date on github, but can be fast forwarded, shall I push?" % src):
                     self.gitm('push', repo.remote, src, redirect=False)
+                    pushed = True
                 else:
                     err("Aborting")
 
@@ -1193,9 +1200,14 @@ be ignored, the first line will be used as title for the issue.""" % (repo.owner
         else:
             err("You don't have %s/%s configured as a remote repository" % (parent.owner.login, parent.name))
 
+        # Ensure information on remote branches is up-to-date
+        if not pushed:
+            self.gitm('fetch', repo.remote, src)
+        self.gitm('fetch', remote, dst)
+
         # How many commits?
         accept_empty_body = False
-        commits = try_decode(self.gitm('log', '--pretty=%H', '%s/%s..%s' % (remote, dst, src)).stdout).strip().split()
+        commits = try_decode(self.gitm('log', '--pretty=%H', '%s/%s..%s/%s' % (remote, dst, repo.remote, src)).stdout).strip().split()
         commits.reverse()
         if not commits:
             err("Your branch has no commits yet")
@@ -1231,7 +1243,7 @@ be ignored, the first line will be used as title for the issue.""" % (repo.owner
 
 Please enter a message to accompany your pull request. Lines starting
 with '#' will be ignored, and an empty message aborts the request.""" % (repo.owner.login, src, parent.owner.login, dst)
-        extra += "\n\n " + try_decode(self.gitm('shortlog', '%s/%s..%s' % (remote, dst, src)).stdout).strip()
+        extra += "\n\n " + try_decode(self.gitm('shortlog', '%s/%s..%s/%s' % (remote, dst, repo.remote, src)).stdout).strip()
         extra += "\n\n " + try_decode(self.gitm('diff', '--stat', '%s^..%s' % (commits[0], commits[-1])).stdout).strip()
         title, body = self.edit_msg(title, body, extra, 'PULL_REQUEST_EDIT_MSG' + ext)
         if not body and not accept_empty_body:
